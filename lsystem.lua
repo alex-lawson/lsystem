@@ -17,8 +17,23 @@ end
 function LSystem:setSeed(seedValue)
    self.seed = seedValue
    self.rng:setSeed(seedValue)
+   self:generateRules()
    self:generateFamilyVars()
-   self:generateFamilyColor()
+   self:generateFamilyColors()
+end
+
+function LSystem:generateRules()
+    if self.proto then
+        self.rules = self.rules or {}
+        for k, t in pairs(self.proto) do
+            local chosen = {}
+            local pool = util.copy(t.from)
+            while #chosen < t.choose and #pool > 0 do
+                table.insert(chosen, table.remove(pool, self.rng:random(1, #pool)))
+            end
+            self.rules[k] = chosen
+        end
+    end
 end
 
 function LSystem:generateFamilyVars()
@@ -34,8 +49,11 @@ function LSystem:generateFamilyVars()
     end
 end
 
-function LSystem:generateFamilyColor()
-    self.familyColor = {self.rng:random(1, 255), self.rng:random(1, 255), self.rng:random(1, 255)}
+function LSystem:generateFamilyColors()
+    self.familyColors = {}
+    for i = 1, self.familyColorCount do
+        table.insert(self.familyColors, {self.rng:random(1, 255), self.rng:random(1, 255), self.rng:random(1, 255)})
+    end
 end
 
 function LSystem:generateInstanceVars()
@@ -55,7 +73,15 @@ end
 
 function LSystem:iterate(sequence)
     return sequence:gsub(".", function(c)
-        return self.rules[c] or c
+        if self.rules[c] then
+            if type(self.rules[c]) == "table" then
+                return self.rules[c][self.rng:random(1, #self.rules[c])]
+            else
+                return self.rules[c]
+            end
+        else
+            return c
+        end
     end)
 end
 

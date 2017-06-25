@@ -43,9 +43,11 @@ end
 
 function Game:newFamily()
     local familyTypes = {
-        "FractalTree",
-        "SierpinskiTriangle",
-        "SierpinskiArrowhead"
+        "DerpCactus"
+        -- "FractalPlant",
+        -- "FractalTree",
+        -- "SierpinskiTriangle",
+        -- "SierpinskiArrowhead"
     }
     local familyType = self.rng:random(1, #familyTypes)
     self.currentFamily = LSystem:new(LSystemTemplates[familyTypes[familyType]], self.rng:random(2147483647))
