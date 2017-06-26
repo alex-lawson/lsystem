@@ -7,6 +7,19 @@ Game = {}
 function Game:new(config)
     local newGame = setmetatable(util.copy(config), {__index=Game})
 
+    -- newGame.familyTypes = {}
+    -- for k, _ in pairs(LSystemTemplates) do
+    --     table.insert(newGame.familyTypes, k)
+    -- end
+
+    newGame.familyTypes = {
+            "DerpCactus",
+            -- "FractalPlant",
+            -- "FractalTree",
+            -- "SierpinskiTriangle",
+            -- "SierpinskiArrowhead"
+        }
+
     return newGame
 end
 
@@ -42,15 +55,8 @@ function Game:clearCanvas()
 end
 
 function Game:newFamily()
-    local familyTypes = {
-        "DerpCactus"
-        -- "FractalPlant",
-        -- "FractalTree",
-        -- "SierpinskiTriangle",
-        -- "SierpinskiArrowhead"
-    }
-    local familyType = self.rng:random(1, #familyTypes)
-    self.currentFamily = LSystem:new(LSystemTemplates[familyTypes[familyType]], self.rng:random(2147483647))
+    local familyType = self.rng:random(1, #self.familyTypes)
+    self.currentFamily = LSystem:new(LSystemTemplates[self.familyTypes[familyType]], self.rng:random(2147483647))
 end
 
 function Game:generateScene()
@@ -65,7 +71,8 @@ function Game:generateScene()
 
     local familyCount = self.rng:random(2, 3)
     for i = 1, familyCount do
-        table.insert(families, LSystem:new(LSystemTemplates.FractalTree, self.rng:random(2147483647)))
+        local familyType = self.rng:random(1, #self.familyTypes)
+        table.insert(families, LSystem:new(LSystemTemplates[self.familyTypes[familyType]], self.rng:random(2147483647)))
 
         local targetDensity = self.rng:randomNormal(0.00002, 0.00005)
         local targetCount = (w * h) * targetDensity

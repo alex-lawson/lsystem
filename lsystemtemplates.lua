@@ -143,7 +143,7 @@ LSystemTemplates = {
             iterations = {3, 6},
             baseAngle = -math.pi / 2,
             branchAngle = {10 / 57.3, 50 / 57.3},
-            segmentLength = {25, 35},
+            segmentLength = {20, 35},
             lineWidth = 1
         },
         varsInstanceStdev = {
@@ -181,16 +181,19 @@ LSystemTemplates = {
     DerpCactus = {
         proto = {
             ['S'] = {
+                base = {'BT'},
                 choose = 2,
-                from = {'BT', '[-BT]BT', 'BT[+BT]', '[-BT]BT[+BT]', '[-BT][+BT]'}
+                from = {'[-BT]BT', 'BT[+BT]', '[-BT]BT[+BT]', '[-BT][+BT]'}
             },
             ['B'] = {
+                base = {'BB'},
                 choose = 2,
-                from = {'BB', 'B-B', 'B+B', 'BB[+T]', '[-T]BB'}
+                from = {'B-B', 'B+B', 'BB[+T]', '[-T]BB'}
             },
             ['T'] = {
+                base = {'BT'},
                 choose = 2,
-                from = {'[-BT][+BT]', 'BT', '[-BT]BT', 'BT[+BT]'}
+                from = {'[-BT][+BT]', '[-BT]BT', 'BT[+BT]'}
             }
         },
         axiom = 'S',

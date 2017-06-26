@@ -26,7 +26,7 @@ function LSystem:generateRules()
     if self.proto then
         self.rules = self.rules or {}
         for k, t in pairs(self.proto) do
-            local chosen = {}
+            local chosen = t.base and util.copy(t.base) or {}
             local pool = util.copy(t.from)
             while #chosen < t.choose and #pool > 0 do
                 table.insert(chosen, table.remove(pool, self.rng:random(1, #pool)))
