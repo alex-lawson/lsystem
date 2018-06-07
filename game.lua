@@ -14,8 +14,8 @@ function Game:new(config)
 
     newGame.familyTypes = {
             "DerpCactus",
-            -- "FractalPlant",
-            -- "FractalTree",
+            "FractalPlant",
+            "FractalTree",
             -- "SierpinskiTriangle",
             -- "SierpinskiArrowhead"
         }

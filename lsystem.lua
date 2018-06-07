@@ -52,7 +52,7 @@ end
 function LSystem:generateFamilyColors()
     self.familyColors = {}
     for i = 1, self.familyColorCount do
-        table.insert(self.familyColors, {self.rng:random(1, 255), self.rng:random(1, 255), self.rng:random(1, 255)})
+        table.insert(self.familyColors, {self.rng:random(), self.rng:random(), self.rng:random()})
     end
 end
 
